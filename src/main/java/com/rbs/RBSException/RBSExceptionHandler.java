@@ -13,4 +13,8 @@ public class RBSExceptionHandler {
     protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
         return new ResponseEntity<>(new RestApiResponse(HttpStatus.FORBIDDEN, "300", "Failed",ex.getMessage()),HttpStatus.FORBIDDEN);
     }
+    @ExceptionHandler(value = { RuntimeException.class })
+    protected ResponseEntity<Object> handleRuntime(Exception ex, WebRequest request) {
+        return new ResponseEntity<>(new RestApiResponse(HttpStatus.INTERNAL_SERVER_ERROR, "500", "Failed",ex.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

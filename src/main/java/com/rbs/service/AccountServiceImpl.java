@@ -11,6 +11,7 @@ import com.rbs.utils.TransactionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
@@ -47,6 +48,7 @@ public class AccountServiceImpl implements AccountService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = {RuntimeException.class})
     public RestApiResponse withdrawalAmount(Double amount, String accountNumber) {
         Account account =ar.findByAccountnumber(accountNumber);
         if(account!=null){
@@ -70,6 +72,7 @@ public class AccountServiceImpl implements AccountService {
      * @return RestApiResponse
      */
     @Override
+    @Transactional(rollbackFor = {RuntimeException.class})
     public RestApiResponse depositAmount(Double amount, String accountNumber) {
         Account account =ar.findByAccountnumber(accountNumber);
         if(account!=null){
